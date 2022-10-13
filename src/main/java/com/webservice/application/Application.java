@@ -1,13 +1,13 @@
-package com.webservice.course;
+package com.webservice.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CourseApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CourseApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
