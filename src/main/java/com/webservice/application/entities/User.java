@@ -1,5 +1,6 @@
 package com.webservice.application.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
@@ -11,6 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
