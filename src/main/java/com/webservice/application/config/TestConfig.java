@@ -1,14 +1,8 @@
 package com.webservice.application.config;
 
-import com.webservice.application.entities.Category;
-import com.webservice.application.entities.Order;
-import com.webservice.application.entities.Product;
-import com.webservice.application.entities.User;
+import com.webservice.application.entities.*;
 import com.webservice.application.entities.enums.OrderStatus;
-import com.webservice.application.repositories.CategoryRepository;
-import com.webservice.application.repositories.OrderRepository;
-import com.webservice.application.repositories.ProductRepository;
-import com.webservice.application.repositories.UserRepository;
+import com.webservice.application.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +27,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @Override
     public void run(String... args) {
 
@@ -55,10 +52,10 @@ public class TestConfig implements CommandLineRunner {
         Order order3 = new Order(null, Instant.parse("2022-09-20T16:35:44Z"), OrderStatus.PAID, user1);
         Order order4 = new Order(null, Instant.parse("2022-07-08T12:13:58Z"), OrderStatus.DELIVERED, user2);
 
-        userRepository.saveAll(Arrays.asList(user1, user2, user3));
-        orderRepository.saveAll(Arrays.asList(order1, order2, order3, order4));
-        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
-        productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+        OrderItem orderItem1 = new OrderItem(order1, p1, 2, p1.getPrice());
+        OrderItem orderItem2 = new OrderItem(order1, p3, 1, p3.getPrice());
+        OrderItem orderItem3 = new OrderItem(order2, p3, 2, p3.getPrice());
+        OrderItem orderItem4 = new OrderItem(order3, p5, 2, p5.getPrice());
 
         p1.getCategories().add(cat2);
         p2.getCategories().add(cat1);
@@ -67,7 +64,12 @@ public class TestConfig implements CommandLineRunner {
         p4.getCategories().add(cat3);
         p5.getCategories().add(cat2);
 
+        userRepository.saveAll(Arrays.asList(user1, user2, user3));
+        orderRepository.saveAll(Arrays.asList(order1, order2, order3, order4));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+        productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+        orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2,orderItem3, orderItem4));
 
     }
 }
