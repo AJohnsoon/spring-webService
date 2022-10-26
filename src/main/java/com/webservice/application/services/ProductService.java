@@ -2,6 +2,8 @@ package com.webservice.application.services;
 
 import com.webservice.application.entities.Product;
 import com.webservice.application.repositories.ProductRepository;
+import com.webservice.application.services.exceptions.ResourceNotFoudException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,6 @@ public class ProductService {
 
     public Product findById(Long id){
         Optional<Product> productObject = productRepository.findById(id);
-        return productObject.get();
+        return productObject.orElseThrow( () -> new ResourceNotFoudException(id));
     }
 }

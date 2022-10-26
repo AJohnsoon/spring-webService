@@ -2,6 +2,8 @@ package com.webservice.application.services;
 
 import com.webservice.application.entities.Category;
 import com.webservice.application.repositories.CategoryRepository;
+import com.webservice.application.services.exceptions.ResourceNotFoudException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,6 @@ public class CategoryService {
 
     public Category findById(Long id){
         Optional<Category> objectCategory = categoryRepository.findById(id);
-        return objectCategory.get();
+        return objectCategory.orElseThrow( ()-> new ResourceNotFoudException(id));
     }
 }
